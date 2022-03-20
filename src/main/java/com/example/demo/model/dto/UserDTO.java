@@ -27,4 +27,8 @@ public class UserDTO {
     public String getCheckPassword() {
         return checkPassword;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

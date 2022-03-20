@@ -9,25 +9,24 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1151.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.ui.RegularUserUI">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1145.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.ui.RegularUserUI">
    <children>
-      <TableView fx:id="PackageTable" layoutX="58.0" layoutY="95.0" prefHeight="362.0" prefWidth="1027.0">
+      <TableView fx:id="PackageTable" layoutX="31.0" layoutY="95.0" prefHeight="362.0" prefWidth="1084.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <TextField fx:id="maxPrice" layoutX="360.0" layoutY="30.0" prefHeight="24.0" prefWidth="97.0" />
-      <TextField fx:id="minPrice" layoutX="222.0" layoutY="30.0" prefHeight="24.0" prefWidth="97.0" />
-      <DatePicker fx:id="startDate" layoutX="515.0" layoutY="30.0" prefHeight="24.0" prefWidth="142.0" />
-      <DatePicker fx:id="endDate" layoutX="703.0" layoutY="30.0" prefHeight="24.0" prefWidth="142.0" />
-      <ComboBox fx:id="DestinationDropdown" layoutX="30.0" layoutY="30.0" prefWidth="150.0" />
-      <Button layoutX="931.0" layoutY="30.0" mnemonicParsing="false" onAction="#viewBooking" text="View your bookings" />
-      <Label layoutX="78.0" layoutY="6.0" text="Destination" />
-      <Label layoutX="219.0" layoutY="6.0" text="minumum price" />
-      <Label layoutX="358.0" layoutY="6.0" text="maximum price" />
-      <Label layoutX="543.0" layoutY="6.0" text="starting after" />
-      <Label layoutX="729.0" layoutY="6.0" text="ending before" />
+      <TextField fx:id="maxPrice" layoutX="377.0" layoutY="42.0" prefHeight="24.0" prefWidth="97.0" />
+      <TextField fx:id="minPrice" layoutX="236.0" layoutY="42.0" prefHeight="24.0" prefWidth="97.0" />
+      <DatePicker fx:id="startDate" layoutX="535.0" layoutY="42.0" prefHeight="24.0" prefWidth="142.0" />
+      <DatePicker fx:id="endDate" layoutX="730.0" layoutY="42.0" prefHeight="24.0" prefWidth="142.0" />
+      <ComboBox fx:id="DestinationDropdown" layoutX="31.0" layoutY="42.0" prefWidth="150.0" />
+      <Button layoutX="929.0" layoutY="42.0" mnemonicParsing="false" onAction="#viewBooking" text="View your bookings" />
+      <Label layoutX="69.0" layoutY="14.0" text="Destination" />
+      <Label layoutX="235.0" layoutY="14.0" text="minimum price" />
+      <Label layoutX="375.0" layoutY="14.0" text="maximum price" />
+      <Label layoutX="563.0" layoutY="14.0" text="starting after" />
+      <Label layoutX="756.0" layoutY="14.0" text="ending before" />
    </children>
 </AnchorPane>

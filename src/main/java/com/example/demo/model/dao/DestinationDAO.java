@@ -14,7 +14,7 @@ public class DestinationDAO {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "destination")
+    @OneToMany(mappedBy = "destination", cascade = CascadeType.REMOVE)
     private List<PackageDAO> packages;
 
     public DestinationDAO(String name) {

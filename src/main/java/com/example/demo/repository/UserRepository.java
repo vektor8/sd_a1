@@ -43,6 +43,11 @@ public class UserRepository {
         return Optional.empty();
     }
 
+    public RegularUserDAO getUserByID(Long id){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        return em.find(RegularUserDAO.class, id);
+    }
+
     public Optional<RegularUserDAO> saveRegularUser(UserDTO user) {
         RegularUserDAO u = new RegularUserDAO(user.getEmail(), user.getPassword());
         return saveUser(u);

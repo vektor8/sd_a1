@@ -6,30 +6,38 @@ import com.example.demo.model.dao.RegularUserDAO;
 import com.example.demo.model.dto.UserDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class NewAccountUI {
 
     UserController _userController = new UserController();
     @FXML
-    private TextField checkPasswordTextField;
+    private PasswordField checkPasswordField;
 
     @FXML
     private TextField emailTextField;
 
     @FXML
-    private TextField passwordTextField;
+    private Label errorLabel;
 
     @FXML
-    private CheckBox userTypeCheckBox;
+    private PasswordField passwordField;
 
     @FXML
     void createAccount(ActionEvent event) throws Exception {
-        RegularUserDAO newUser = _userController.newRegularUser(new UserDTO(emailTextField.getText(), passwordTextField.getText(), checkPasswordTextField.getText()));
+        RegularUserDAO newUser = _userController.newRegularUser(new UserDTO(emailTextField.getText(), passwordField.getText(), checkPasswordField.getText()));
         if (newUser != null) {
-            HelloApplication.setRoot("hello-view", 500, 500);
+            HelloApplication.setRoot("hello-view", 320, 379);
+        }else{
+            errorLabel.setText("Your user data is not correct");
         }
     }
-
+    @FXML
+    void backToLogin(ActionEvent event) throws IOException {
+        HelloApplication.setRoot("hello-view", 320, 379);
+    }
 }

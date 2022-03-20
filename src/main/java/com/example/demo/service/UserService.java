@@ -34,4 +34,13 @@ public class UserService {
         }
         throw new Exception("user couldn't be saved to db");
     }
+
+    public RegularUserDAO getUserByID(Long id) throws Exception {
+        Optional<RegularUserDAO> returnUser;
+        returnUser = Optional.ofNullable(_userRepository.getUserByID(id));
+        if (returnUser.isPresent()) {
+            return returnUser.get();
+        }
+        throw new Exception("user couldn't be saved to db");
+    }
 }

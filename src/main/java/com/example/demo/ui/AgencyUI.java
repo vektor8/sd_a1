@@ -111,6 +111,7 @@ public class AgencyUI implements Initializable {
         menuItem1.setOnAction(e -> {
             _agencyController.deleteDestination( ((DestinationDAO) table.getSelectionModel().getSelectedItem()).getId());
             updateDestinationsTable(destinationsTable, _agencyController.getAllDestinations());
+            updatePackagesTable(packagesTable, _agencyController.getPackagesByAgencyID(agency.getId()));
         });
         menuItem2.setOnAction(e -> {
             Stage stage = new Stage();

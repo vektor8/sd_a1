@@ -22,10 +22,10 @@ public class PackageUI implements Initializable {
     public static PackageDAO pack;
     private final AgencyController _agencyController = new AgencyController();
     @FXML
-    private ComboBox<DestinationDAO> destinationDropdown;
+    private TextField availableField;
 
     @FXML
-    private TextField availableField;
+    private ComboBox<DestinationDAO> destinationDropdown;
 
     @FXML
     private TextArea detailsField;

@@ -78,6 +78,15 @@ public class UserController {
         return null;
     }
 
+    public RegularUserDAO updateUser(Long id){
+        try {
+            return _userService.getUserByID(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
     public static void main(String[] args) {

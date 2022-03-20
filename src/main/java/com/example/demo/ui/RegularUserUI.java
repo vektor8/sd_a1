@@ -61,7 +61,11 @@ public class RegularUserUI implements Initializable {
         ContextMenu cm = new ContextMenu();
         MenuItem menuItem1 = new MenuItem("Book");
         TableView finalTable = table;
-        menuItem1.setOnAction(e -> _userController.bookVacation(user.getId(), ((PackageDAO)finalTable.getSelectionModel().getSelectedItem()).getId()));
+        menuItem1.setOnAction(e -> {
+            _userController.bookVacation(user.getId(), ((PackageDAO)finalTable.getSelectionModel().getSelectedItem()).getId());
+            user = _userController.updateUser(user.getId());
+            updateTable(PackageTable, _userController.getAllPackages());
+        });
         cm.getItems().addAll(menuItem1);
 
         table.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {

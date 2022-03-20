@@ -103,7 +103,7 @@ public class PackageDAO {
     @Column
     public Integer availablePlaces;
 
-    @ManyToMany(mappedBy = "bookings")
+    @ManyToMany(mappedBy = "bookings", cascade = CascadeType.REMOVE)
     private List<RegularUserDAO> tourists;
 
     public PackageDAO() {

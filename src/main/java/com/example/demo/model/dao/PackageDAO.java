@@ -38,8 +38,10 @@ public class PackageDAO {
     @Column
     private String extraDetails;
 
+    private BookingStatus status;
+
     @ManyToOne
-    @JoinColumn(name = "agency_id")
+    @JoinColumn(name = "agency_id", nullable = false)
     private AgencyDAO agency;
 
     public void setDestination(DestinationDAO destination) {
@@ -86,6 +88,18 @@ public class PackageDAO {
         this.tourists = new ArrayList<>();
     }
 
+    public String getStatus() {
+        Integer available = getAvailablePlaces();
+        if(available > 0 && available < this.availablePlaces)
+            this.status = BookingStatus.IN_PROGRESS;
+        else if (available == 0) {
+            this.status = BookingStatus.BOOKED;
+        }else{
+            this.status = BookingStatus.NOT_BOOKED;
+        }
+        return  status.toString();
+    }
+
     @Column
     public Integer availablePlaces;
 
@@ -109,6 +123,10 @@ public class PackageDAO {
 
     public String getDestination() {
         return destination.getName();
+    }
+
+    public DestinationDAO getDestinationDAO(){
+        return destination;
     }
 
     public Double getPrice() {

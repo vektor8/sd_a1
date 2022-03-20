@@ -7,7 +7,6 @@ import com.example.demo.model.dto.PackageDTO;
 import com.example.demo.service.DestinationService;
 import com.example.demo.service.PackageService;
 
-import java.sql.Date;
 import java.util.List;
 
 public class AgencyController {
@@ -67,19 +66,18 @@ public class AgencyController {
         return null;
     }
 
-//
-//    public List<PackageDAO> getFilteredPackages(Double minPrice, Double maxPrice, Date startDate, Date endDate) {
-//        try {
-//            return _packageService.getFilteredPackages(minPrice, maxPrice, startDate, endDate);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
     public List<PackageDAO> getPackagesByAgencyID(Long agencyID) {
         try {
             return _packageService.getPackagesByAgencyID(agencyID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<DestinationDAO> getAllDestinations() {
+        try {
+            return _destinationService.getAllDestinations();
         } catch (Exception e) {
             e.printStackTrace();
         }

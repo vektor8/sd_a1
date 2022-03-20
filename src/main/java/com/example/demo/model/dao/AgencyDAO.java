@@ -11,7 +11,7 @@ public class AgencyDAO  {
     private Long id;
 
     @Column(unique = true)
-    private String name;
+    private String email;
 
     @Column
     private String password;
@@ -20,7 +20,7 @@ public class AgencyDAO  {
     private List<PackageDAO> packages;
 
     public AgencyDAO(String email, String password) {
-        this.name = email;
+        this.email = email;
         this.password = password;
     }
 
@@ -33,6 +33,6 @@ public class AgencyDAO  {
     }
 
     public String getName() {
-        return name;
+        return email;
     }
 }

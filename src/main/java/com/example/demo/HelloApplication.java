@@ -1,24 +1,41 @@
 package com.example.demo;
 
+import com.example.demo.model.dao.AgencyDAO;
+import com.example.demo.ui.AgencyUI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
 
     private static Scene scene;
     private static Stage window;
-
+    private static final EntityManagerFactory entityManagerFactory =
+            Persistence.createEntityManagerFactory("ro.tutorial.lab.SD1");
     @Override
     public void start(Stage stage) throws IOException {
         window = stage;
         scene = new Scene(loadFXML("hello-view"));
         stage.setScene(scene);
         stage.show();
+        AgencyDAO user = new AgencyDAO("abc22@gmail.com", "aa");
+        EntityManager em = entityManagerFactory.createEntityManager();
+//        em.getTransaction().begin();
+//        em.persist(user);
+//        em.getTransaction().commit();
+//        em.close();
+        AgencyUI.agency = em.find(AgencyDAO.class, 12L);
+        Stage stage1 = new Stage();
+        Scene scene1 = new Scene(loadFXML("agency"));
+        stage1.setScene(scene1);
+        stage1.show();
     }
 
     public static void setRoot(String fxml, Integer v, Integer v1) throws IOException {
@@ -27,7 +44,7 @@ public class HelloApplication extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    static Parent loadFXML(String fxml) throws IOException {
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }

@@ -34,4 +34,12 @@ public  class RegularUserDAO {
     public void addBooking(PackageDAO pack){
         this.bookings.add(pack);
     }
+
+    public List<PackageDAO> getBookings() {
+        return bookings;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

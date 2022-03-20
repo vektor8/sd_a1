@@ -43,6 +43,9 @@ public class RegularUserUI implements Initializable {
     @FXML
     private DatePicker startDate;
 
+    @FXML
+    private Label errorLabel;
+
     public static RegularUserDAO user;
 
     public void updateTable(TableView table, List<PackageDAO> packageDAOList) {
@@ -77,8 +80,9 @@ public class RegularUserUI implements Initializable {
     }
 
     public void filterPackages() {
+        errorLabel.setText("");
         Date minDateFilter = startDate.getValue() != null ? Date.valueOf(startDate.getValue()) : new Date(0);
-        Date maxDateFilter = endDate.getValue() != null ? Date.valueOf(endDate.getValue()) : new Date(1647717369);
+        Date maxDateFilter = endDate.getValue() != null ? Date.valueOf(endDate.getValue()) : Date.valueOf("3000-1-1");
         Double minPriceFilter = Double.MIN_VALUE, maxPriceFilter = Double.MAX_VALUE;
         try {
             if (!minPrice.getText().isBlank())
@@ -87,12 +91,19 @@ public class RegularUserUI implements Initializable {
                 maxPriceFilter = Double.parseDouble(maxPrice.getText());
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        if (DestinationDropdown.getSelectionModel().isEmpty())
-            updateTable(PackageTable, _userController.getFilteredPackages(minPriceFilter, maxPriceFilter, minDateFilter, maxDateFilter));
-        else {
-            DestinationDAO a = (DestinationDAO) DestinationDropdown.getValue();
-            updateTable(PackageTable, _userController.getFilteredPackages(minPriceFilter, maxPriceFilter, minDateFilter, maxDateFilter, a.getId()));
+            errorLabel.setText("Filter fields are not correct");
+        }finally {
+            if (DestinationDropdown.getSelectionModel().isEmpty())
+                updateTable(PackageTable, _userController.getFilteredPackages(minPriceFilter, maxPriceFilter, minDateFilter, maxDateFilter));
+            else {
+                DestinationDAO a = (DestinationDAO) DestinationDropdown.getValue();
+                List<PackageDAO> packages = _userController.getFilteredPackages(minPriceFilter, maxPriceFilter, minDateFilter, maxDateFilter, a.getId());
+                if(packages == null){
+                    errorLabel.setText("Filter fields are not correct");
+                }
+                packages = packages != null ? packages : _userController.getAllPackages();
+                updateTable(PackageTable, packages);
+            }
         }
     }
 
@@ -114,7 +125,29 @@ public class RegularUserUI implements Initializable {
         maxPrice.textProperty().addListener((observable, oldValue, newValue) -> filterPackages());
         startDate.valueProperty().addListener((observable, oldValue, newValue) -> filterPackages());
         endDate.valueProperty().addListener((observable, oldValue, newValue) -> filterPackages());
+        DestinationDropdown.valueProperty().addListener((observable, oldValue, newValue) -> filterPackages());
 
         DestinationDropdown.getItems().addAll(FXCollections.observableArrayList(_userController.getAllDestinations()));
+
+//        // force the field to be numeric only
+//        maxPrice.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue,
+//                                String newValue) {
+//                if (!newValue.matches("\\d*") && !newValue.matches("\\d*\\.\\d*")) {
+//                    maxPrice.setText(newValue.replaceAll("[^\\d]", ""));
+//                }
+//            }
+//        });
+//
+//        minPrice.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue,
+//                                String newValue) {
+//                if (!newValue.matches("\\d*") && !newValue.matches("\\d*\\.\\d*")) {
+//                    minPrice.setText(newValue.replaceAll("[^\\d]", ""));
+//                }
+//            }
+//        });
     }
 }

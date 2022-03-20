@@ -33,7 +33,7 @@ public class BookingUI implements Initializable {
             t.setMinWidth(100);
             t.setStyle("-fx-alignment: CENTER;");
         }
-        table.getItems().addAll(packageDAOList.stream().filter(packageDAO -> packageDAO.getAvailablePlaces() > 0).toList());
+        table.getItems().addAll(packageDAOList);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -56,18 +56,16 @@ public class UserController {
         try {
             return _packageService.getFilteredPackages(minPrice, maxPrice, startDate, endDate, destinationID);
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public List<PackageDAO> getFilteredPackages(Double minPrice, Double maxPrice, Date startDate, Date endDate) {
         try {
             return _packageService.getFilteredPackages(minPrice, maxPrice, startDate, endDate);
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
     public List<DestinationDAO> getAllDestinations() {
         try {

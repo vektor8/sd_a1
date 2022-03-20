@@ -29,7 +29,7 @@ public class LoginUI {
     void login(ActionEvent event) throws IOException {
             RegularUserDAO user = _userController.login(new UserDTO(emailTextField.getText(), passwordField.getText()));
             if(user != null) {
-                HelloApplication.setRoot("user-view", 1145, 521);
+                HelloApplication.setRoot("user-view", 1145, 560);
                 RegularUserUI.user = user;
             }else{
                 errorLabel.setText("Username or password not correct");

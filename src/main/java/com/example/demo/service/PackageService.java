@@ -6,6 +6,7 @@ import com.example.demo.repository.PackageRepository;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class PackageService {
@@ -50,6 +51,7 @@ public class PackageService {
 
     public List<PackageDAO> getFilteredPackages(Double minPrice, Double maxPrice, Date startDate, Date endDate, Long destinationID) throws Exception {
         Optional<List<PackageDAO>> packages = _packageRepository.getFilteredPackages(minPrice, maxPrice, startDate, endDate, destinationID);
+        System.out.println(minPrice +" " + maxPrice + " " + startDate + " " + endDate +" " + destinationID);
         if(packages.isPresent()){
             return packages.get();
         }

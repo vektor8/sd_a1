@@ -6,13 +6,18 @@ import com.example.demo.repository.PackageRepository;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class PackageService {
     private static final PackageRepository _packageRepository = new PackageRepository();
 
+    private boolean validPackage(PackageDTO pack){
+        return pack.getPrice() >= 0 && pack.getStartDate().compareTo(pack.getEndDate()) <= 0;
+    }
     public PackageDAO createPackage(PackageDTO packageDTO) throws Exception {
+        if(!validPackage(packageDTO)){
+            throw new Exception("package data is not correct");
+        }
         Optional<PackageDAO> newPackage =_packageRepository.createPackage(packageDTO);
         if (newPackage.isPresent()) {
             return newPackage.get();
@@ -31,6 +36,9 @@ public class PackageService {
     }
 
     public PackageDAO updatePackage(Long id, PackageDTO packageDTO) throws Exception {
+        if(!validPackage(packageDTO)){
+            throw new Exception("package data is not correct");
+        }
         Optional<PackageDAO> updatedPackage =_packageRepository.updatePackage(id, packageDTO);
         if (updatedPackage.isPresent()) {
             return updatedPackage.get();

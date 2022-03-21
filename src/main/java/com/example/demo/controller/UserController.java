@@ -84,12 +84,4 @@ public class UserController {
         }
         return null;
     }
-
-
-
-    public static void main(String[] args) {
-        UserController uc = new UserController();
-//        uc.newRegularUser(new UserDTO("plm@gmail.com", "Caca", "Caca"));
-        uc.login(new UserDTO("plm@gmail.com", "Caa"));
-    }
 }

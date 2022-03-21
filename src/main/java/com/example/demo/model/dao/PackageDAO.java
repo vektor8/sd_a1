@@ -4,6 +4,7 @@ package com.example.demo.model.dao;
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -103,7 +104,7 @@ public class PackageDAO {
     @Column
     public Integer availablePlaces;
 
-    @ManyToMany(mappedBy = "bookings", cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "bookings", cascade = CascadeType.ALL)
     private List<RegularUserDAO> tourists;
 
     public PackageDAO() {
@@ -146,6 +147,10 @@ public class PackageDAO {
     }
 
     public String getAgency() {
+        System.out.println("here man");
+        Arrays.stream(Thread.currentThread().getStackTrace()).forEach(s -> System.out.println(
+                "\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":" + s
+                        .getLineNumber() + ")"));
         return agency.getName();
     }
 

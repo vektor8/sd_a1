@@ -83,9 +83,4 @@ public class AgencyController {
         }
         return null;
     }
-    public static void main(String[] args){
-        AgencyController dc = new AgencyController();
-//        DestinationDAO a = dc.createDestination(new DestinationDTO("Papa1"));
-        dc.deleteDestination(4L);
-    }
 }

@@ -48,6 +48,8 @@ public class RegularUserUI implements Initializable {
 
     public static RegularUserDAO user;
 
+    public static int allIndex;
+
     public void updateTable(TableView table, List<PackageDAO> packageDAOList) {
         table.getColumns().clear();
         table.getItems().clear();
@@ -93,7 +95,7 @@ public class RegularUserUI implements Initializable {
             e.printStackTrace();
             errorLabel.setText("Filter fields are not correct");
         }finally {
-            if (DestinationDropdown.getSelectionModel().isEmpty())
+            if (DestinationDropdown.getSelectionModel().isEmpty() || DestinationDropdown.getSelectionModel().getSelectedIndex() == allIndex )
                 updateTable(PackageTable, _userController.getFilteredPackages(minPriceFilter, maxPriceFilter, minDateFilter, maxDateFilter));
             else {
                 DestinationDAO a = (DestinationDAO) DestinationDropdown.getValue();
@@ -111,7 +113,7 @@ public class RegularUserUI implements Initializable {
     void viewBooking() throws IOException {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        BookingUI.user = user;
+        BookingUI.user = _userController.updateUser(user.getId());
         Scene scene = new Scene(HelloApplication.loadFXML("booking-view"));
         stage.setScene(scene);
         stage.showAndWait();
@@ -127,27 +129,9 @@ public class RegularUserUI implements Initializable {
         endDate.valueProperty().addListener((observable, oldValue, newValue) -> filterPackages());
         DestinationDropdown.valueProperty().addListener((observable, oldValue, newValue) -> filterPackages());
 
-        DestinationDropdown.getItems().addAll(FXCollections.observableArrayList(_userController.getAllDestinations()));
-
-//        // force the field to be numeric only
-//        maxPrice.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue,
-//                                String newValue) {
-//                if (!newValue.matches("\\d*") && !newValue.matches("\\d*\\.\\d*")) {
-//                    maxPrice.setText(newValue.replaceAll("[^\\d]", ""));
-//                }
-//            }
-//        });
-//
-//        minPrice.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue,
-//                                String newValue) {
-//                if (!newValue.matches("\\d*") && !newValue.matches("\\d*\\.\\d*")) {
-//                    minPrice.setText(newValue.replaceAll("[^\\d]", ""));
-//                }
-//            }
-//        });
+        List<DestinationDAO> destinationDAOS = _userController.getAllDestinations();
+        DestinationDropdown.getItems().addAll(FXCollections.observableArrayList(destinationDAOS));
+        DestinationDropdown.getItems().add("All");
+        allIndex = destinationDAOS.size();
     }
 }

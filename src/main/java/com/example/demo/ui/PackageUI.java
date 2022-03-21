@@ -43,6 +43,9 @@ public class PackageUI implements Initializable {
     private DatePicker startDate;
 
     @FXML
+    private Label errorLabel;
+
+    @FXML
     void addPackage(ActionEvent event) {
         PackageDTO packDTO = new PackageDTO(nameField.getText(),
                 Double.parseDouble(priceField.getText()),
@@ -51,23 +54,29 @@ public class PackageUI implements Initializable {
                 agency.getId(),
                 Integer.parseInt(availableField.getText())
         );
+        PackageDAO createdPackage = null;
         if (pack == null)
-            _agencyController.createPackage(packDTO);
+            createdPackage = _agencyController.createPackage(packDTO);
         else
-            _agencyController.updatePackage(pack.getId(), packDTO);
-        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+            createdPackage = _agencyController.updatePackage(pack.getId(), packDTO);
+        if (createdPackage != null) {
+            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        } else {
+            errorLabel.setText("Fields are not correct");
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         destinationDropdown.getItems().addAll(_agencyController.getAllDestinations());
-        if(pack!=null){
+        if (pack != null) {
             nameField.setText(pack.getName());
-            priceField.setText(pack.getPrice()+"");
+            priceField.setText(pack.getPrice() + "");
             startDate.setValue(pack.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             endDate.setValue(pack.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             detailsField.setText(pack.getExtraDetails());
             destinationDropdown.getSelectionModel().select(pack.getDestinationDAO());
+            availableField.setText(pack.getAvailablePlaces() + "");
         }
     }
 }
